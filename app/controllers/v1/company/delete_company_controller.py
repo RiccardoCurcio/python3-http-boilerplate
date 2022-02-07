@@ -38,5 +38,5 @@ class DeleteCompanyController(Controller):
 
         return self.response(
             await self.__service.excute(id=request.match_info.get('entity_id', None)),
-            201
+            200
         )

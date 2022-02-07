@@ -39,3 +39,60 @@ docker-compose --env-file ./app/.env build --no-cache
 ```
 docker-compose --env-file ./app/.env up --build
 ```
+
+
+## Requests
+
+#### healthcheck
+```
+GET http://localhost:3050/healthcheck
+```
+
+#### read all
+```
+GET http://localhost:3050/v1/companies
+```
+
+#### read single item
+```
+GET http://localhost:3050/v1/companies/{id}
+```
+
+#### crete new item
+``` 
+POST http://localhost:3050/v1/companies
+
+header
+
+    Content-Type: application/json
+
+body: 
+
+    {
+    	"name": "test",
+    	"iban": "iban",
+    	"email": "company@email.com"
+    }
+```
+
+#### update sigle item
+```
+PUT http://localhost:3050/v1/companies/{id}
+
+header
+
+    Content-Type: application/json
+
+body: 
+
+    {
+    	"name": "test",
+    	"iban": "iban",
+    	"email": "company@email.com"
+    }
+```
+
+### delete sigle item
+```
+DELETE http://localhost:3050/v1/companies/{id}
+```
