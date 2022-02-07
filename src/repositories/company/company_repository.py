@@ -1,12 +1,29 @@
 from src.repositories import Repository
-from src.repositories.company import CompanyUpdateExcepion, CompanyReadByIdExcepion, CompaniesReadExcepion
+from src.repositories.company import CompanyUpdateExcepion, CompanyReadByIdExcepion, CompaniesReadExcepion, CompanyCreateExcepion
 import traceback
 from bootstrap.logger import logger
 
 
 class CompanyRepository(Repository):
-    async def create(self, data):
-        pass
+    async def create(self, data: dict):
+        """[summary]
+
+        Args:
+            data (dict): [description]
+
+        Raises:
+            CompanyCreateExcepion: [description]
+
+        Returns:
+            [type]: [description]
+        """
+        try:
+            logger.info('CompanyRepository create ')
+            return {"company": "company repo create"}
+        except Exception as e:
+            logger.error({"error": f"CompanyRepository create : {e.__repr__}"})
+            logger.error(traceback.format_exc())
+            raise CompanyCreateExcepion(e)
 
     async def read(self) -> dict:
         """[summary]

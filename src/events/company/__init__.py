@@ -4,6 +4,7 @@ import traceback
 from typing import Union
 from bootstrap.logger import logger
 from threading import Thread
+from src.events.company.actions.create_company_action import CreateCompanyAction
 from src.events.company.actions.read_company_action import ReadCompanyAction
 from src.events.company.actions.read_companies_action import ReadCompaniesAction
 from src.events.company.actions.update_company_action import UpdateCompanyAction
@@ -25,7 +26,8 @@ class CompanyEvent(Event):
         self.__eventMapping = {
             "update_company_event": UpdateCompanyAction,
             "read_company_event": ReadCompanyAction,
-            "read_companies_event": ReadCompaniesAction
+            "read_companies_event": ReadCompaniesAction,
+            "create_company_event": CreateCompanyAction
         }
         pass
 

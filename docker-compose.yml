@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-    api-shipping:
+    http-boilerplate:
         restart: unless-stopped
         container_name: ${PREFIX}_${ENV}_${SERVICE_NAME}
         build: .

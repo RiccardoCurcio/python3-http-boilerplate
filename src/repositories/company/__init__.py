@@ -1,3 +1,7 @@
+class CompanyCreateExcepion(Exception):
+    pass
+
+
 class CompanyReadByIdExcepion(Exception):
     pass
 
