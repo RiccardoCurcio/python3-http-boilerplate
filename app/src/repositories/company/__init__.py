@@ -12,3 +12,7 @@ class CompaniesReadExcepion(Exception):
 
 class CompanyUpdateExcepion(Exception):
     pass
+
+
+class CompanyDeleteExcepion(Exception):
+    pass

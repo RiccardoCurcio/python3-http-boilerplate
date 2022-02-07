@@ -1,5 +1,5 @@
 from aiohttp.web import middleware
-from bootstrap.logger import logger
+from app.bootstrap.logger import logger
 
 
 @middleware

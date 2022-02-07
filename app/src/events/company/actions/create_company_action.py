@@ -1,4 +1,4 @@
-from bootstrap.logger import logger
+from app.bootstrap.logger import logger
 from typing import Union
 
 

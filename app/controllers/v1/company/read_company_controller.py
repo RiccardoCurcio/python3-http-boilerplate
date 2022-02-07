@@ -1,11 +1,11 @@
 from aiohttp.web_request import Request
 from aiohttp.web_response import Response
-from controllers.v1 import Controller, error
-from controllers.v1.company import read_schema
-from src.services.company.read_company_service import ReadCompanyService
-from src.repositories.company.company_repository import CompanyRepository
-from src.events.company import CompanyEvent
-from bootstrap.logger import logger
+from app.controllers.v1 import Controller, error
+from app.controllers.v1.company import read_schema
+from app.src.services.company.read_company_service import ReadCompanyService
+from app.src.repositories.company.company_repository import CompanyRepository
+from app.src.events.company import CompanyEvent
+from app.bootstrap.logger import logger
 
 
 class ReadCompanyController(Controller):

@@ -1,13 +1,14 @@
-from src.events import Event, CompanyEventExcepion
+from app.src.events import Event, CompanyEventExcepion
 import asyncio
 import traceback
 from typing import Union
-from bootstrap.logger import logger
+from app.bootstrap.logger import logger
 from threading import Thread
-from src.events.company.actions.create_company_action import CreateCompanyAction
-from src.events.company.actions.read_company_action import ReadCompanyAction
-from src.events.company.actions.read_companies_action import ReadCompaniesAction
-from src.events.company.actions.update_company_action import UpdateCompanyAction
+from app.src.events.company.actions.create_company_action import CreateCompanyAction
+from app.src.events.company.actions.read_company_action import ReadCompanyAction
+from app.src.events.company.actions.read_companies_action import ReadCompaniesAction
+from app.src.events.company.actions.update_company_action import UpdateCompanyAction
+from app.src.events.company.actions.delete_company_action import DeleteCompanyAction
 
 
 class CompanyEvent(Event):
@@ -24,10 +25,11 @@ class CompanyEvent(Event):
         """
         self.__event = eventName
         self.__eventMapping = {
-            "update_company_event": UpdateCompanyAction,
+            "create_company_event": CreateCompanyAction,
             "read_company_event": ReadCompanyAction,
             "read_companies_event": ReadCompaniesAction,
-            "create_company_event": CreateCompanyAction
+            "update_company_event": UpdateCompanyAction,
+            "delete_company_event": DeleteCompanyAction
         }
         pass
 

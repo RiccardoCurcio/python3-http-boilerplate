@@ -9,7 +9,7 @@ from aiohttp.web_request import Request
 from aiohttp import web
 from jsonschema import validate as validate_json
 from jsonschema.exceptions import ValidationError
-from bootstrap.logger import logger
+from app.bootstrap.logger import logger
 
 
 def validate(handle):

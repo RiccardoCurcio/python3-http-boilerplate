@@ -1,9 +1,9 @@
-from src.services import Service
+from app.src.services import Service
 import traceback
-from bootstrap.logger import logger
-from src.events.company import CompanyEvent, CompanyEventExcepion
-from src.repositories.company import CompanyUpdateExcepion
-from src.repositories.company.company_repository import CompanyRepository
+from app.bootstrap.logger import logger
+from app.src.events.company import CompanyEvent, CompanyEventExcepion
+from app.src.repositories.company import CompanyUpdateExcepion
+from app.src.repositories.company.company_repository import CompanyRepository
 
 
 class UpdateCompanyService(Service):

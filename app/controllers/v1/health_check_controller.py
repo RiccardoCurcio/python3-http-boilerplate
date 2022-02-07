@@ -1,5 +1,5 @@
 from aiohttp.web_request import Request
-from controllers.v1 import Controller, error
+from app.controllers.v1 import Controller, error
 
 
 class HealthCheckController(Controller):

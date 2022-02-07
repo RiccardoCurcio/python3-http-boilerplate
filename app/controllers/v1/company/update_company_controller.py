@@ -1,10 +1,10 @@
 from aiohttp.web_request import Request
-from controllers.v1 import Controller, error, validate
-from controllers.v1.company import update_schema
-from src.services.company.update_company_service import UpdateCompanyService
-from src.repositories.company.company_repository import CompanyRepository
-from src.events.company import CompanyEvent
-from bootstrap.logger import logger
+from app.controllers.v1 import Controller, error, validate
+from app.controllers.v1.company import update_schema
+from app.src.services.company.update_company_service import UpdateCompanyService
+from app.src.repositories.company.company_repository import CompanyRepository
+from app.src.events.company import CompanyEvent
+from app.bootstrap.logger import logger
 
 
 class UpdateCompanyController(Controller):

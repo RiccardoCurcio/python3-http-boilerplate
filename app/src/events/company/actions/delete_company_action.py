@@ -2,7 +2,7 @@ from app.bootstrap.logger import logger
 from typing import Union
 
 
-class UpdateCompanyAction:
+class DeleteCompanyAction:
     """[summary]
     """
     def __init__(self):
@@ -17,4 +17,4 @@ class UpdateCompanyAction:
             id (Union[str, None], optional): [description]. Defaults to None.
             data (dict, optional): [description]. Defaults to {}.
         """
-        logger.info(f'[UpdateCompanyAction] Complete loop event : {id} {data}')
+        logger.info(f'[DeleteCompanyAction] Complete loop event : {id}')

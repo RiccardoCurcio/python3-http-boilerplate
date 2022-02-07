@@ -1,7 +1,7 @@
-from src.repositories import Repository
-from src.repositories.company import CompanyUpdateExcepion, CompanyReadByIdExcepion, CompaniesReadExcepion, CompanyCreateExcepion
+from app.src.repositories import Repository
+from app.src.repositories.company import CompanyUpdateExcepion, CompanyReadByIdExcepion, CompaniesReadExcepion, CompanyCreateExcepion, CompanyDeleteExcepion
 import traceback
-from bootstrap.logger import logger
+from app.bootstrap.logger import logger
 
 
 class CompanyRepository(Repository):
@@ -84,4 +84,10 @@ class CompanyRepository(Repository):
             raise CompanyUpdateExcepion(e)
 
     async def delete(self, id):
-        pass
+        try:
+            logger.info(f'CompanyRepository delete : {id}')
+            return {"company": f"company repo delete : {id}"}
+        except Exception as e:
+            logger.error({"error": f"CompanyRepository update : {e.__repr__}"})
+            logger.error(traceback.format_exc())
+            raise CompanyDeleteExcepion(e)

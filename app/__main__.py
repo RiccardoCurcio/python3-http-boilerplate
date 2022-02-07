@@ -4,9 +4,9 @@ import sys
 from aiohttp import web
 from dotenv import load_dotenv, find_dotenv
 
-from bootstrap.logger import logger
-from routes import routes
-from middlewares import example_middelware
+from app.bootstrap.logger import logger
+from app.routes import routes
+from app.middlewares import example_middelware
 
 load_dotenv(find_dotenv())
 

@@ -2,12 +2,12 @@ from app.src.services import Service
 import traceback
 from app.bootstrap.logger import logger
 from app.src.events.company import CompanyEvent, CompanyEventExcepion
-from app.src.repositories.company import CompanyCreateExcepion
+from app.src.repositories.company import CompanyDeleteExcepion
 from app.src.repositories.company.company_repository import CompanyRepository
 
 
-class CreateCompanyService(Service):
-    """[Create company service]
+class DeleteCompanyService(Service):
+    """[Delete company service]
 
     Args:
         Service ([Service]): [ABS service]
@@ -23,12 +23,11 @@ class CreateCompanyService(Service):
         self.__repo = repository
         self.__event = event
 
-    async def excute(self, data: dict) -> dict:
-        """[Create company service]
+    async def excute(self, id: str) -> dict:
+        """[Delete company service]
 
         Args:
-            id (str): [id entity to create]
-            data (dict): [data to create]
+            id (str): [id entity to delete]
 
         Raises:
             Exception: []
@@ -37,18 +36,18 @@ class CreateCompanyService(Service):
             dict: [to reponse]
         """
         response = {}
-        logger.info("CreateCompanyService excute")
+        logger.info(f"DeleteCompanyService excute id={id}")
 
         try:
-            response = await self.__repo.create(data=data)
-        except CompanyCreateExcepion as e:
-            logger.error({"error": f"CreateCompanyService CompanyRepository create: {e.__repr__}"})
+            response = await self.__repo.delete(id=id)
+        except CompanyDeleteExcepion as e:
+            logger.error({"error": f"DeleteCompanyService CompanyRepository delete: {e.__repr__}"})
             logger.error(traceback.format_exc())
             raise Exception(e)
         try:
-            self.__event.dispatch(data=data)
+            self.__event.dispatch(id=id)
         except CompanyEventExcepion as e:
-            logger.error({"error": f"CreateCompanyService CompanyEvent dispatch: {e.__repr__}"})
+            logger.error({"error": f"DeleteCompanyService CompanyEvent dispatch: {e.__repr__}"})
             logger.error(traceback.format_exc())
 
         return response
