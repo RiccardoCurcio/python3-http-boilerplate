@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+    http-boilerplate:
+        restart: unless-stopped
+        container_name: ${PREFIX}_${ENV}_${SERVICE_NAME}
+        build: .
+        ports:
+            - ${PORT}:${PORT}
+networks:
+    default:
+        name:
+            net_${ENV}_${PREFIX}_backend
