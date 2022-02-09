@@ -13,7 +13,6 @@ notFound = [
     route("*", "/{tail:.*}", notFoundController.handle)
 ]
 
-print(os.getenv("CORSS_ORIGIN_RESOLVE", False) in ("1", "True", "true", True))
 corssOriginRoute = [route("OPTIONS", "/{tail:.*}", corssOrigin.handle)] if os.getenv("CORSS_ORIGIN_RESOLVE", False) in ("1", "True", "true", True) else []
 
 routes = company_routes + [
