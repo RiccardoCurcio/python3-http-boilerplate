@@ -3,7 +3,7 @@ Simple boilerplate for http python3 CRUD service
 
 ## Set env file
 ```
-$ cp .env.example ./app/env
+$ cp .env.example ./app/.env
 ```
 
 #### Edit .env
