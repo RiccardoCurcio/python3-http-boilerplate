@@ -4,6 +4,19 @@ import os
 from app.bootstrap.logger import logger
 
 
+corss_headers = {
+    "access-control-allow-credentials": os.getenv("ALLOW_CREDENTIALS", "true"),
+    "access-control-allow-origin": os.getenv("ALLOW_ORIGIN", "*"),
+    "access-control-allow-methods": os.getenv("ALLOW_METHODS", "*"),
+    "access-control-allow-headers": os.getenv("ALLOW_HEADERS", "*"),
+    "access-control-max-age": os.getenv("MAX_AGE", "0"),
+    "access-control-expose-headers": " ",
+    "Server": os.getenv("SERVICE_NAME", "PY3-http-boilerplate"),
+    "vary": os.getenv("VARY", "Origin"),
+    "cache-controll": os.getenv("CACHE_CONTROLL", "private, must-revalidate")
+}
+
+
 class CorssOrigin:
     def __init__(self) -> None:
         pass
@@ -15,11 +28,5 @@ class CorssOrigin:
             data=None,
             status=204,
             content_type="application/vnd.api+json",
-            headers={
-                "Access-Control-Allow-Origin": os.getenv("ALLOW_ORIGIN", ""),
-                "Access-Control-Allow-Methods": os.getenv("ALLOW_METHODS", ""),
-                "Access-Control-Allow-Headers": os.getenv("ALLOW_HEADERS", ""),
-                "Access-Control-Max-Age": os.getenv("MAX_AGE", "86400"),
-                "Server": os.getenv("SERVICE_NAME", "PY3-http-boilerplate")
-            }
+            headers=corss_headers
         )

@@ -6,6 +6,8 @@ RUN mkdir /usr/src/service/app
 
 COPY ./app ./app
 
+COPY .env ./app/.env
+
 RUN apt-get -y update
 
 RUN apt-get -y install libssl-dev libffi-dev python3-openssl
