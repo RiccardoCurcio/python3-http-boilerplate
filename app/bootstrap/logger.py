@@ -1,9 +1,7 @@
 import logging
 import os
+# from app.bootstrap.env import loaded
 
-from dotenv import load_dotenv, find_dotenv
-
-load_dotenv(find_dotenv())
 
 handler = logging.StreamHandler()
 handler.setFormatter(logging.Formatter(fmt='[%(asctime)s] %(levelname)s %(pathname)s line:%(lineno)d %(message)s', datefmt='%Y-%m-%d %H:%M:%S'))

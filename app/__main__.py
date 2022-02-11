@@ -2,13 +2,11 @@ import os
 import sys
 
 from aiohttp import web
-from dotenv import load_dotenv, find_dotenv
-
+from app.bootstrap.env import loaded
 from app.bootstrap.logger import logger
 from app.routes import routes
 from app.middlewares import example_middelware
 
-load_dotenv(find_dotenv())
 
 app = web.Application(middlewares=[example_middelware])
 app.add_routes(routes)
@@ -17,6 +15,7 @@ app.add_routes(routes)
 if __name__ == '__main__':
     try:
         port = int(os.getenv('PORT'))
+        logger.info(f'Env load {loaded}...')
         logger.info(f'Starting server on port {port}...')
         web.run_app(app, port=port)
     except KeyboardInterrupt:
