@@ -1,7 +1,6 @@
 import json
 import os
 import traceback
-import random
 from typing import Any
 from abc import ABC, abstractmethod
 from aiohttp.web_exceptions import HTTPBadRequest, HTTPError
@@ -9,6 +8,7 @@ from aiohttp.web_request import Request
 from aiohttp import web
 from jsonschema import validate as validate_json
 from jsonschema.exceptions import ValidationError
+from app.corss_origin import corss_headers
 from app.bootstrap.logger import logger
 
 
@@ -93,8 +93,9 @@ class Controller(ABC):
         )
 
     @staticmethod
-    def response(data: Any = None, status: int = 200):
-
+    def response(data: Any = None, status: int = 200, customHeader: dict = {}):
+        server = {"Server": os.getenv("SERVICE_NAME", "PY3-http-boilerplate")}
+        __corss_headers = corss_headers if os.getenv("CORSS_ORIGIN_RESOLVE", False) in ("1", "True", "true", True) else {}
         data_response = {}
         if 200 <= status < 300:
             data_response.update(success=True)
@@ -107,7 +108,5 @@ class Controller(ABC):
             data=data_response,
             status=status,
             content_type="application/vnd.api+json",
-            headers={
-                "Server": random.choice(["🤟", "💀", "🤙", "💩", "🤫", "💣", "🥔"])
-            }
+            headers={**__corss_headers, **server, **customHeader}
         )
