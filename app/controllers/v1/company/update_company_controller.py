@@ -1,9 +1,9 @@
 from aiohttp.web_request import Request
-from app.controllers.v1 import Controller, error, validate
+from app.controllers import Controller, error, validate
 from app.controllers.v1.company import update_schema
-from app.src.services.company.update_company_service import UpdateCompanyService
-from app.src.repositories.company.company_repository import CompanyRepository
-from app.src.events.company import CompanyEvent
+from app.src.v1.services.company.update_company_service import UpdateCompanyService
+from app.src.v1.repositories.company.company_repository import CompanyRepository
+from app.src.v1.events.company import CompanyEvent
 from app.bootstrap.logger import logger
 
 

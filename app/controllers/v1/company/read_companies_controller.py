@@ -1,10 +1,10 @@
 from aiohttp.web_request import Request
 from aiohttp.web_response import Response
-from app.controllers.v1 import Controller, error
+from app.controllers import Controller, error
 from app.controllers.v1.company import read_schema
-from app.src.services.company.read_companies_service import ReadCompaniesService
-from app.src.repositories.company.company_repository import CompanyRepository
-from app.src.events.company import CompanyEvent
+from app.src.v1.services.company.read_companies_service import ReadCompaniesService
+from app.src.v1.repositories.company.company_repository import CompanyRepository
+from app.src.v1.events.company import CompanyEvent
 from app.bootstrap.logger import logger
 
 

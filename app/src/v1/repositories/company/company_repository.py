@@ -1,5 +1,5 @@
-from app.src.repositories import Repository
-from app.src.repositories.company import CompanyUpdateExcepion, CompanyReadByIdExcepion, CompaniesReadExcepion, CompanyCreateExcepion, CompanyDeleteExcepion
+from app.src.repository import Repository
+from app.src.v1.exceptions.company.repositories import CompanyUpdateExcepion, CompanyReadByIdExcepion, CompaniesReadExcepion, CompanyCreateExcepion, CompanyDeleteExcepion
 import traceback
 from app.bootstrap.logger import logger
 

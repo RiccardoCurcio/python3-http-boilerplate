@@ -1,14 +1,15 @@
-from app.src.events import Event, CompanyEventExcepion
+from app.src.event import Event
+from app.src.v1.exceptions.company.events import CompanyEventExcepion
 import asyncio
 import traceback
 from typing import Union
 from app.bootstrap.logger import logger
 from threading import Thread
-from app.src.events.company.actions.create_company_action import CreateCompanyAction
-from app.src.events.company.actions.read_company_action import ReadCompanyAction
-from app.src.events.company.actions.read_companies_action import ReadCompaniesAction
-from app.src.events.company.actions.update_company_action import UpdateCompanyAction
-from app.src.events.company.actions.delete_company_action import DeleteCompanyAction
+from app.src.v1.events.company.actions.create_company_action import CreateCompanyAction
+from app.src.v1.events.company.actions.read_company_action import ReadCompanyAction
+from app.src.v1.events.company.actions.read_companies_action import ReadCompaniesAction
+from app.src.v1.events.company.actions.update_company_action import UpdateCompanyAction
+from app.src.v1.events.company.actions.delete_company_action import DeleteCompanyAction
 
 
 class CompanyEvent(Event):

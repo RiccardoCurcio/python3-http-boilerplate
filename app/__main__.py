@@ -20,7 +20,7 @@ if __name__ == '__main__':
         web.run_app(app, port=port)
     except KeyboardInterrupt:
         logger.info('Stopping server...')
-        sys.exit()
+        sys.exit(0)
     except Exception as e:
         logger.error(f'There was an error while starting the server: {e}')
         sys.exit(1)

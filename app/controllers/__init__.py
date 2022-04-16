@@ -13,6 +13,19 @@ from app.bootstrap.logger import logger
 
 
 def validate(handle):
+    """_summary_
+
+    Args:
+        handle (_type_): _description_
+
+    Raises:
+        HTTPBadRequest: _description_
+        HTTPBadRequest: _description_
+        HTTPBadRequest: _description_
+
+    Returns:
+        _type_: _description_
+    """
     @error
     async def wrapper(controller, request: Request):
         if controller.schema is None:
@@ -38,6 +51,11 @@ def validate(handle):
 
 
 def error(handle):
+    """_summary_
+
+    Args:
+        handle (_type_): _description_
+    """
     async def wrapper(controller, request: Request):
         try:
             return await handle(controller, request)
@@ -57,18 +75,44 @@ def error(handle):
 
 
 class Controller(ABC):
+    """_summary_
+
+    Args:
+        ABC (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     @abstractmethod
     @error
     async def handle(self, request: Request):
+        """_summary_
+
+        Args:
+            request (Request): _description_
+        """
         pass
 
     @property
     @abstractmethod
     def schema(self) -> dict:
+        """_summary_
+
+        Returns:
+            dict: _description_
+        """
         pass
 
     @staticmethod
     async def to_json(request: Request) -> dict:
+        """_summary_
+
+        Args:
+            request (Request): _description_
+
+        Returns:
+            dict: _description_
+        """
         return await request.json() if request.body_exists else {}
 
     async def error(self,
@@ -77,6 +121,17 @@ class Controller(ABC):
                     title: str = "Internal server error",
                     status: int = 500,
                     ):
+        """_summary_
+
+        Args:
+            request (Request): _description_
+            detail (str, optional): _description_. Defaults to "There was an error during the execution".
+            title (str, optional): _description_. Defaults to "Internal server error".
+            status (int, optional): _description_. Defaults to 500.
+
+        Returns:
+            _type_: _description_
+        """
         method = request.method
         url = request.url
         text = f"{json.loads(await request.text() or '{}')}"
@@ -94,6 +149,16 @@ class Controller(ABC):
 
     @staticmethod
     def response(data: Any = None, status: int = 200, customHeader: dict = {}):
+        """_summary_
+
+        Args:
+            data (Any, optional): _description_. Defaults to None.
+            status (int, optional): _description_. Defaults to 200.
+            customHeader (dict, optional): _description_. Defaults to {}.
+
+        Returns:
+            _type_: _description_
+        """
         server = {"Server": os.getenv("SERVICE_NAME", "PY3-http-boilerplate")}
         __corss_headers = corss_headers if os.getenv("CORSS_ORIGIN_RESOLVE", False) in ("1", "True", "true", True) else {}
         data_response = {}

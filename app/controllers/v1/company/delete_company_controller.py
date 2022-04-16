@@ -1,9 +1,9 @@
 from aiohttp.web_request import Request
-from app.controllers.v1 import Controller, error
+from app.controllers import Controller, error
 from app.controllers.v1.company import delete_schema
-from app.src.services.company.delete_company_service import DeleteCompanyService
-from app.src.repositories.company.company_repository import CompanyRepository
-from app.src.events.company import CompanyEvent
+from app.src.v1.services.company.delete_company_service import DeleteCompanyService
+from app.src.v1.repositories.company.company_repository import CompanyRepository
+from app.src.v1.events.company import CompanyEvent
 from app.bootstrap.logger import logger
 
 
