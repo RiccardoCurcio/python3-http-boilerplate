@@ -1,5 +1,4 @@
-from ctypes import Union
-from typing import List
+from typing import List, Union
 from app.src.valuesobjects.ObjectId import ObjectId
 from app.src.valuesobjects.CompanyName import CompanyName
 from app.src.valuesobjects.VatNumber import VatNumber
@@ -13,8 +12,17 @@ class Company:
         self.__name: CompanyName = None
         self.__vatNumber: Union[VatNumber, None] = None
         self.__phones: List[PhoneNumber] = []
-        self.__emails: List[PhoneNumber] = []
+        self.__emails: List[Email] = []
         pass
+
+    def to_dict(self):
+        return {
+            "id": self.__id.get(),
+            "name": self.__name.get(),
+            "vatNumber": self.__vatNumber.get(),
+            "phones": [value.get() for value in self.__phones],
+            "emails": [value.get() for value in self.__emails]
+        }
 
     @property
     def id(self) -> Union[ObjectId, None]:
@@ -30,7 +38,7 @@ class Company:
         return self.__name
 
     @name.setter
-    def id(self, name: CompanyName) -> None:
+    def name(self, name: CompanyName) -> None:
         self.__name = name
         return None
 
@@ -57,6 +65,6 @@ class Company:
         return self.__emails
 
     @emails.setter
-    def phones(self, emails: List[Email] = []) -> None:
+    def emails(self, emails: List[Email] = []) -> None:
         self.__emails = emails
         return None

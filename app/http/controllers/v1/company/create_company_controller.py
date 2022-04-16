@@ -1,6 +1,7 @@
 from aiohttp.web_request import Request
-from app.controllers import Controller, error, validate
-from app.controllers.v1.company import create_schema
+from app.http.controllers import Controller, error, validate
+from app.http.controllers.v1.company import create_schema
+from app.http.adapter.v1.company.create_company_adapter import CreateCompanyAdapter
 from app.src.v1.services.company.create_company_service import CreateCompanyService
 from app.src.v1.repositories.company.company_repository import CompanyRepository
 from app.src.v1.events.company import CompanyEvent
@@ -36,9 +37,12 @@ class CreateCompanyController(Controller):
         """
 
         logger.info('CreateCompanyController handle')
-        data = await request.json()
 
         return self.response(
-            await self.__service.excute(data=data),
+            (
+                await self.__service.excute(
+                    data=await CreateCompanyAdapter(request).adapt()
+                )
+            ).to_dict(),
             201
         )

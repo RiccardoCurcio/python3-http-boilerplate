@@ -1,11 +1,13 @@
+from typing import Union
 from app.src.repository import Repository
+from app.src.v1.entities.company import Company
 from app.src.v1.exceptions.company.repositories import CompanyUpdateExcepion, CompanyReadByIdExcepion, CompaniesReadExcepion, CompanyCreateExcepion, CompanyDeleteExcepion
 import traceback
 from app.bootstrap.logger import logger
 
 
 class CompanyRepository(Repository):
-    async def create(self, data: dict):
+    async def create(self, data: Company) -> Union[Company, None]:
         """[summary]
 
         Args:
@@ -19,7 +21,7 @@ class CompanyRepository(Repository):
         """
         try:
             logger.info('CompanyRepository create ')
-            return {"company": "company repo create"}
+            return data
         except Exception as e:
             logger.error({"error": f"CompanyRepository create : {e.__repr__}"})
             logger.error(traceback.format_exc())

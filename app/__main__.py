@@ -4,7 +4,7 @@ import sys
 from aiohttp import web
 from app.bootstrap.env import loaded
 from app.bootstrap.logger import logger
-from app.routes import routes
+from app.http.routes import routes
 from app.middlewares import example_middelware
 
 

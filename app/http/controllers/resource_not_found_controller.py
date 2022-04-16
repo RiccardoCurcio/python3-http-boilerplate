@@ -1,6 +1,6 @@
 from aiohttp.web_request import Request
 
-from app.controllers import Controller
+from app.http.controllers import Controller
 
 
 class ResourceNotFoundController(Controller):

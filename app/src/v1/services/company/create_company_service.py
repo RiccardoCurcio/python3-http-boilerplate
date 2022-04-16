@@ -1,6 +1,8 @@
+from typing import Union
 from app.src.service import Service
 import traceback
 from app.bootstrap.logger import logger
+from app.src.v1.entities.company import Company
 from app.src.v1.exceptions.company.events import CompanyEventExcepion
 from app.src.v1.events.company import CompanyEvent
 from app.src.v1.exceptions.company.repositories import CompanyCreateExcepion
@@ -24,20 +26,19 @@ class CreateCompanyService(Service):
         self.__repo = repository
         self.__event = event
 
-    async def excute(self, data: dict) -> dict:
-        """[Create company service]
+    async def excute(self, data: Company) -> Union[Company, None]:
+        """_summary_
 
         Args:
-            id (str): [id entity to create]
-            data (dict): [data to create]
+            data (Company): _description_
 
         Raises:
-            Exception: []
+            Exception: _description_
 
         Returns:
-            dict: [to reponse]
+            Union[Company, None]: _description_
         """
-        response = {}
+        response: Union[Company, None] = None
         logger.info("CreateCompanyService excute")
 
         try:
