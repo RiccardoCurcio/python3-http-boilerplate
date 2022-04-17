@@ -4,7 +4,7 @@ from app.bootstrap.logger import logger
 from app.src.v1.exceptions.company.events import CompanyEventExcepion
 from app.src.v1.events.company import CompanyEvent
 from app.src.v1.exceptions.company.repositories import CompanyUpdateExcepion
-from app.src.v1.repositories.company.company_repository import CompanyRepository
+from app.src.v1.repositories.company.update_company_repository import UpdateCompanyRepository
 
 
 class UpdateCompanyService(Service):
@@ -14,11 +14,11 @@ class UpdateCompanyService(Service):
         Service ([Service]): [ABS service]
     """
 
-    def __init__(self, repository: CompanyRepository, event: CompanyEvent) -> None:
+    def __init__(self, repository: UpdateCompanyRepository, event: CompanyEvent) -> None:
         """[summary]
 
         Args:
-            repository (CompanyRepository): [description]
+            repository (UpdateCompanyRepository): [description]
             event (CompanyEvent): [description]
         """
         self.__repo = repository
@@ -43,7 +43,7 @@ class UpdateCompanyService(Service):
         try:
             response = await self.__repo.update(id=id, data=data)
         except CompanyUpdateExcepion as e:
-            logger.error({"error": f"UpdateCompanyService CompanyRepository update: {e.__repr__}"})
+            logger.error({"error": f"UpdateCompanyService UpdateCompanyRepository update: {e.__repr__}"})
             logger.error(traceback.format_exc())
             raise Exception(e)
         try:

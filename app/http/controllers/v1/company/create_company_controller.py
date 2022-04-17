@@ -3,7 +3,7 @@ from app.http.controllers import Controller, error, validate
 from app.http.controllers.v1.company import create_schema
 from app.http.adapter.v1.company.create_company_adapter import CreateCompanyAdapter
 from app.src.v1.services.company.create_company_service import CreateCompanyService
-from app.src.v1.repositories.company.company_repository import CompanyRepository
+from app.src.v1.repositories.company.create_company_repository import CreateCompanyRepository
 from app.src.v1.events.company import CompanyEvent
 from app.bootstrap.logger import logger
 
@@ -16,7 +16,7 @@ class CreateCompanyController(Controller):
     """
     def __init__(self) -> None:
         self.__service = CreateCompanyService(
-            CompanyRepository(),
+            CreateCompanyRepository(),
             CompanyEvent("create_company_event")
         )
 

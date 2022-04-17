@@ -6,7 +6,7 @@ from app.src.v1.entities.company import Company
 from app.src.v1.exceptions.company.events import CompanyEventExcepion
 from app.src.v1.events.company import CompanyEvent
 from app.src.v1.exceptions.company.repositories import CompanyCreateExcepion
-from app.src.v1.repositories.company.company_repository import CompanyRepository
+from app.src.v1.repositories.company.create_company_repository import CreateCompanyRepository
 
 
 class CreateCompanyService(Service):
@@ -16,11 +16,11 @@ class CreateCompanyService(Service):
         Service ([Service]): [ABS service]
     """
 
-    def __init__(self, repository: CompanyRepository, event: CompanyEvent) -> None:
+    def __init__(self, repository: CreateCompanyRepository, event: CompanyEvent) -> None:
         """[summary]
 
         Args:
-            repository (CompanyRepository): [description]
+            repository (CreateCompanyRepository): [description]
             event (CompanyEvent): [description]
         """
         self.__repo = repository

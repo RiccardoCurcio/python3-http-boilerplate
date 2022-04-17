@@ -4,7 +4,7 @@ from app.bootstrap.logger import logger
 from app.src.v1.exceptions.company.events import CompanyEventExcepion
 from app.src.v1.events.company import CompanyEvent
 from app.src.v1.exceptions.company.repositories import CompanyDeleteExcepion
-from app.src.v1.repositories.company.company_repository import CompanyRepository
+from app.src.v1.repositories.company.delete_company_repository import DeleteCompanyRepository
 
 
 class DeleteCompanyService(Service):
@@ -14,11 +14,11 @@ class DeleteCompanyService(Service):
         Service ([Service]): [ABS service]
     """
 
-    def __init__(self, repository: CompanyRepository, event: CompanyEvent) -> None:
+    def __init__(self, repository: DeleteCompanyRepository, event: CompanyEvent) -> None:
         """[summary]
 
         Args:
-            repository (CompanyRepository): [description]
+            repository (DeleteCompanyRepository): [description]
             event (CompanyEvent): [description]
         """
         self.__repo = repository
@@ -42,7 +42,7 @@ class DeleteCompanyService(Service):
         try:
             response = await self.__repo.delete(id=id)
         except CompanyDeleteExcepion as e:
-            logger.error({"error": f"DeleteCompanyService CompanyRepository delete: {e.__repr__}"})
+            logger.error({"error": f"DeleteCompanyService DeleteCompanyRepository delete: {e.__repr__}"})
             logger.error(traceback.format_exc())
             raise Exception(e)
         try:

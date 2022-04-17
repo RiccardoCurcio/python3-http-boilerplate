@@ -2,7 +2,7 @@ from app.src.service import Service
 from app.src.v1.exceptions.company.events import CompanyEventExcepion
 from app.src.v1.events.company import CompanyEvent
 from app.src.v1.exceptions.company.repositories import CompaniesReadExcepion
-from app.src.v1.repositories.company.company_repository import CompanyRepository
+from app.src.v1.repositories.company.read_companies_repository import ReadCompaniesRepository
 import traceback
 from app.bootstrap.logger import logger
 
@@ -14,11 +14,11 @@ class ReadCompaniesService(Service):
         Service ([Service]): [ADS service]
     """
 
-    def __init__(self, repository: CompanyRepository, event: CompanyEvent) -> None:
+    def __init__(self, repository: ReadCompaniesRepository, event: CompanyEvent) -> None:
         """[summary]
 
         Args:
-            repository (CompanyRepository): [description]
+            repository (ReadCompaniesRepository): [description]
             event (CompanyEvent): [description]
         """
         self.__repo = repository
@@ -44,7 +44,7 @@ class ReadCompaniesService(Service):
         try:
             response = await self.__repo.read()
         except CompaniesReadExcepion as e:
-            logger.error({"error": f"ReadCompaniesService CompanyRepository read all: {e.__repr__}"})
+            logger.error({"error": f"ReadCompaniesService ReadCompaniesRepository read all: {e.__repr__}"})
             logger.error(traceback.format_exc())
             raise Exception(e)
 

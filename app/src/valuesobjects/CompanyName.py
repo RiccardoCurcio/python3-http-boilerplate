@@ -1,4 +1,4 @@
-from app.src.valuesobjects import ValueObject
+from app.src.valuesobjects import ValueObject, ValueObjectExcepion, Rules
 import re
 
 
@@ -11,16 +11,15 @@ class CompanyName(ValueObject):
         return self.__value
 
 
-class Rules:
+class Rules(Rules):
 
     @staticmethod
     def run(value) -> bool:
         regex = r".{2,}"
-        if re.fullmatch(regex, value):
-            return value
-        else:
+        if not re.fullmatch(regex, value):
             raise CompanyNameExcepion("Company Name non valid length")
+        return value
 
 
-class CompanyNameExcepion(Exception):
+class CompanyNameExcepion(ValueObjectExcepion):
     pass

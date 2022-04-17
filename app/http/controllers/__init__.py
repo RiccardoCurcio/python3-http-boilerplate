@@ -4,6 +4,7 @@ import traceback
 from typing import Any
 from abc import ABC, abstractmethod
 from aiohttp.web_exceptions import HTTPBadRequest, HTTPError
+from app.src.valuesobjects import ValueObjectExcepion
 from aiohttp.web_request import Request
 from aiohttp import web
 from jsonschema import validate as validate_json
@@ -43,7 +44,7 @@ def validate(handle):
             )
         except ValidationError as e:
             logger.error(e)
-            raise HTTPBadRequest()
+            raise HTTPBadRequest(reason=e.message)
 
         return await handle(controller, request)
 
@@ -66,6 +67,10 @@ def error(handle):
                 "HTTP Error",
                 e.status
             )
+        except ValueObjectExcepion as e:
+            if os.getenv("ENV") == "local":
+                logger.error(traceback.format_exc())
+            return await controller.error(request=request, detail=str(e), title="ValueObject rules Exception", status=400)
         except Exception as e:
             if os.getenv("ENV") == "local":
                 logger.error(traceback.format_exc())

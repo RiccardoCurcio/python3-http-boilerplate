@@ -2,7 +2,7 @@ from aiohttp.web_request import Request
 from app.http.controllers import Controller, error
 from app.http.controllers.v1.company import delete_schema
 from app.src.v1.services.company.delete_company_service import DeleteCompanyService
-from app.src.v1.repositories.company.company_repository import CompanyRepository
+from app.src.v1.repositories.company.delete_company_repository import DeleteCompanyRepository
 from app.src.v1.events.company import CompanyEvent
 from app.bootstrap.logger import logger
 
@@ -15,7 +15,7 @@ class DeleteCompanyController(Controller):
     """
     def __init__(self) -> None:
         self.__service = DeleteCompanyService(
-            CompanyRepository(),
+            DeleteCompanyRepository(),
             CompanyEvent("delete_company_event")
         )
 

@@ -3,7 +3,7 @@ from aiohttp.web_response import Response
 from app.http.controllers import Controller, error
 from app.http.controllers.v1.company import read_schema
 from app.src.v1.services.company.read_companies_service import ReadCompaniesService
-from app.src.v1.repositories.company.company_repository import CompanyRepository
+from app.src.v1.repositories.company.read_companies_repository import ReadCompaniesRepository
 from app.src.v1.events.company import CompanyEvent
 from app.bootstrap.logger import logger
 
@@ -17,7 +17,7 @@ class ReadCompaniesController(Controller):
 
     def __init__(self) -> None:
         self.__service = ReadCompaniesService(
-            CompanyRepository(),
+            ReadCompaniesRepository(),
             CompanyEvent("read_companies_event")
         )
 
