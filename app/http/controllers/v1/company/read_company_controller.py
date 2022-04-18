@@ -1,6 +1,6 @@
 from aiohttp.web_request import Request
 from aiohttp.web_response import Response
-from app.http.controllers import Controller, error
+from app.http.controllers import Controller, error, validateHeaders, validateParams, validateQuery, validateBody
 from app.http.controllers.v1.company import read_schema
 from app.src.v1.services.company.read_company_service import ReadCompanyService
 from app.src.v1.repositories.company.read_company_repository import ReadCompanyRepository
@@ -26,6 +26,10 @@ class ReadCompanyController(Controller):
         return read_schema
 
     @error
+    @validateHeaders
+    @validateParams
+    @validateQuery
+    @validateBody
     async def handle(self, request: Request) -> Response:
         """[Read company controller Handler]
 

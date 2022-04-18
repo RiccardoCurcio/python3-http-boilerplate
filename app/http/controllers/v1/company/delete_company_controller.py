@@ -1,5 +1,5 @@
 from aiohttp.web_request import Request
-from app.http.controllers import Controller, error
+from app.http.controllers import Controller, error, validateHeaders, validateParams, validateQuery, validateBody
 from app.http.controllers.v1.company import delete_schema
 from app.src.v1.services.company.delete_company_service import DeleteCompanyService
 from app.src.v1.repositories.company.delete_company_repository import DeleteCompanyRepository
@@ -24,6 +24,10 @@ class DeleteCompanyController(Controller):
         return delete_schema
 
     @error
+    @validateHeaders
+    @validateParams
+    @validateQuery
+    @validateBody
     async def handle(self, request: Request):
         """[Delete company controller Handler]
 

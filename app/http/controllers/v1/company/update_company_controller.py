@@ -1,5 +1,5 @@
 from aiohttp.web_request import Request
-from app.http.controllers import Controller, error, validate
+from app.http.controllers import Controller, error, validateHeaders, validateParams, validateQuery, validateBody
 from app.http.controllers.v1.company import update_schema
 from app.src.v1.services.company.update_company_service import UpdateCompanyService
 from app.src.v1.repositories.company.update_company_repository import UpdateCompanyRepository
@@ -24,7 +24,10 @@ class UpdateCompanyController(Controller):
         return update_schema
 
     @error
-    @validate
+    @validateHeaders
+    @validateParams
+    @validateQuery
+    @validateBody
     async def handle(self, request: Request):
         """[Update company controller Handler]
 

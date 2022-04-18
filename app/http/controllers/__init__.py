@@ -13,7 +13,7 @@ from app.corss_origin import corss_headers
 from app.bootstrap.logger import logger
 
 
-def validate(handle):
+def validateHeaders(handle):
     """_summary_
 
     Args:
@@ -21,7 +21,43 @@ def validate(handle):
 
     Raises:
         HTTPBadRequest: _description_
-        HTTPBadRequest: _description_
+
+    Returns:
+        _type_: _description_
+    """
+    @error
+    async def wrapper(controller, request: Request):
+        headers = dict(
+            map(
+                lambda item: item,
+                request.raw_headers
+            )
+        )
+
+        headers = {y.decode('ascii'): headers.get(y).decode('ascii')
+                   for y in headers.keys()}
+
+        try:
+            validate_json(
+                instance=headers,
+                schema=controller.schema.get("headers", None)
+            )
+        except ValidationError as e:
+            logger.error(e)
+            raise HTTPBadRequest(reason=e.message)
+
+        return await handle(controller, request)
+
+    return wrapper
+
+
+def validateParams(handle):
+    """_summary_
+
+    Args:
+        handle (_type_): _description_
+
+    Raises:
         HTTPBadRequest: _description_
 
     Returns:
@@ -29,18 +65,66 @@ def validate(handle):
     """
     @error
     async def wrapper(controller, request: Request):
-        if controller.schema is None:
-            body = await controller.to_json(request)
-            if not body:
-                return await handle(controller, request)
-            raise HTTPBadRequest()
+        try:
+            validate_json(
+                instance=dict(request.match_info),
+                schema=controller.schema.get("params", None)
+            )
+        except ValidationError as e:
+            logger.error(e)
+            raise HTTPBadRequest(reason=e.message)
 
-        if request.content_type != "application/json":
-            raise HTTPBadRequest()
+        return await handle(controller, request)
+
+    return wrapper
+
+
+def validateQuery(handle):
+    """_summary_
+
+    Args:
+        handle (_type_): _description_
+
+    Raises:
+        HTTPBadRequest: _description_
+
+    Returns:
+        _type_: _description_
+    """
+    @error
+    async def wrapper(controller, request: Request):
+        try:
+            validate_json(
+                instance=dict(request.rel_url.query),
+                schema=controller.schema.get("query", None)
+            )
+        except ValidationError as e:
+            logger.error(e)
+            raise HTTPBadRequest(reason=e.message)
+
+        return await handle(controller, request)
+
+    return wrapper
+
+
+def validateBody(handle):
+    """_summary_
+
+    Args:
+        handle (_type_): _description_
+
+    Raises:
+        HTTPBadRequest: _description_
+
+    Returns:
+        _type_: _description_
+    """
+    @error
+    async def wrapper(controller, request: Request):
         try:
             validate_json(
                 instance=await controller.to_json(request),
-                schema=controller.schema
+                schema=controller.schema.get("body", None)
             )
         except ValidationError as e:
             logger.error(e)
@@ -165,7 +249,8 @@ class Controller(ABC):
             _type_: _description_
         """
         server = {"Server": os.getenv("SERVICE_NAME", "PY3-http-boilerplate")}
-        __corss_headers = corss_headers if os.getenv("CORSS_ORIGIN_RESOLVE", False) in ("1", "True", "true", True) else {}
+        __corss_headers = corss_headers if os.getenv(
+            "CORSS_ORIGIN_RESOLVE", False) in ("1", "True", "true", True) else {}
         data_response = {}
         if 200 <= status < 300:
             data_response.update(success=True)
