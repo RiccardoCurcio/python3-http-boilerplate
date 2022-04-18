@@ -1,6 +1,7 @@
 from app.src.service import Service
 import traceback
 from app.bootstrap.logger import logger
+from app.src.v1.entities.company import Company
 from app.src.v1.exceptions.company.events import CompanyEventExcepion
 from app.src.v1.events.company import CompanyEvent
 from app.src.v1.exceptions.company.repositories import CompanyUpdateExcepion
@@ -24,7 +25,7 @@ class UpdateCompanyService(Service):
         self.__repo = repository
         self.__event = event
 
-    async def excute(self, id: str, data: dict) -> dict:
+    async def excute(self, data: Company) -> dict:
         """[Update company service]
 
         Args:
@@ -38,16 +39,16 @@ class UpdateCompanyService(Service):
             dict: [to reponse]
         """
         response = {}
-        logger.info(f"UpdateCompanyService excute id={id}")
+        logger.info(f"UpdateCompanyService excute id={data.id}")
 
         try:
-            response = await self.__repo.update(id=id, data=data)
+            response = await self.__repo.update(data=data)
         except CompanyUpdateExcepion as e:
             logger.error({"error": f"UpdateCompanyService UpdateCompanyRepository update: {e.__repr__}"})
             logger.error(traceback.format_exc())
             raise Exception(e)
         try:
-            self.__event.dispatch(id=id, data=data)
+            self.__event.dispatch(data=data)
         except CompanyEventExcepion as e:
             logger.error({"error": f"UpdateCompanyService CompanyEvent dispatch: {e.__repr__}"})
             logger.error(traceback.format_exc())

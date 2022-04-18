@@ -17,9 +17,9 @@ class Company:
 
     def to_dict(self):
         return {
-            "id": self.__id.get(),
-            "name": self.__name.get(),
-            "vatNumber": self.__vatNumber.get(),
+            "id": self.__id.get() if self.__id else None,
+            "name": self.__name.get() if self.__name else None,
+            "vatNumber": self.__vatNumber.get() if self.__vatNumber else None,
             "phones": [value.get() for value in self.__phones],
             "emails": [value.get() for value in self.__emails]
         }

@@ -1,9 +1,11 @@
 from aiohttp.web_request import Request
 from app.http.controllers import Controller, error, validateHeaders, validateParams, validateQuery, validateBody
 from app.http.controllers.v1.company import delete_schema
+from app.http.adapter.v1.company.delete_company_adapter import DeleteCompanyAdapter
 from app.src.v1.services.company.delete_company_service import DeleteCompanyService
 from app.src.v1.repositories.company.delete_company_repository import DeleteCompanyRepository
 from app.src.v1.events.company import CompanyEvent
+from app.http.transformers.v1.company.delete_company_transformer import DeleteCompanyTranformer
 from app.bootstrap.logger import logger
 
 
@@ -41,6 +43,10 @@ class DeleteCompanyController(Controller):
         logger.info('DeleteCompanyController handle')
 
         return self.response(
-            await self.__service.excute(id=request.match_info.get('entity_id', None)),
+            DeleteCompanyTranformer.transform(
+                await self.__service.excute(
+                    data=await DeleteCompanyAdapter(request).adapt()
+                )
+            ),
             200
         )

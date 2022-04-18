@@ -1,4 +1,5 @@
 from app.src.repository import DeleteRepository
+from app.src.v1.entities.company import Company
 from app.src.v1.exceptions.company.repositories import CompanyDeleteExcepion
 import traceback
 from app.bootstrap.logger import logger
@@ -11,7 +12,7 @@ class DeleteCompanyRepository(DeleteRepository):
         DeleteRepository (_type_): _description_
     """
 
-    async def delete(self, id):
+    async def delete(self, data: Company):
         """_summary_
 
         Args:
@@ -24,8 +25,8 @@ class DeleteCompanyRepository(DeleteRepository):
             _type_: _description_
         """
         try:
-            logger.info(f'CompanyRepository delete : {id}')
-            return {"company": f"company repo delete : {id}"}
+            logger.info(f'CompanyRepository delete : {data.id}')
+            return {"company": f"company repo delete : {data.id.get()}"}
         except Exception as e:
             logger.error({"error": f"CompanyRepository update : {e.__repr__}"})
             logger.error(traceback.format_exc())

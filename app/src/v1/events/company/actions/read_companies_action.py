@@ -1,5 +1,6 @@
 from app.bootstrap.logger import logger
-from typing import Union
+from typing import List
+from app.src.v1.entities.company import Company
 
 
 class ReadCompaniesAction:
@@ -10,7 +11,7 @@ class ReadCompaniesAction:
         """
         pass
 
-    def run(self, id: Union[str, None], data: dict):
+    def run(self, data: List[Company]):
         """[summary]
 
         Args:

@@ -1,5 +1,5 @@
 from app.bootstrap.logger import logger
-from typing import Union
+from app.src.v1.entities.company import Company
 
 
 class ReadCompanyAction:
@@ -10,11 +10,11 @@ class ReadCompanyAction:
         """
         pass
 
-    def run(self, id: Union[str, None], data: dict):
+    def run(self, data: Company):
         """[summary]
 
         Args:
             id (Union[str, None]): [description]
             data (dict): [description]
         """
-        logger.info(f'[ReadCompanyAction] Complete loop event : {id} {data}')
+        logger.info(f'[ReadCompanyAction] Complete loop event : {data.id} {data.to_dict()}')

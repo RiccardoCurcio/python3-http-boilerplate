@@ -17,7 +17,7 @@ class ReadAllRepository(ABC):
 class ReadRepository(ABC):
 
     @abstractmethod
-    async def readById(self, id):
+    async def readById(self, data):
         pass
 
 

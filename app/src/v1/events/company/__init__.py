@@ -2,9 +2,10 @@ from app.src.event import Event
 from app.src.v1.exceptions.company.events import CompanyEventExcepion
 import asyncio
 import traceback
-from typing import Union
+from typing import Union, List
 from app.bootstrap.logger import logger
 from threading import Thread
+from app.src.v1.entities.company import Company
 from app.src.v1.events.company.actions.create_company_action import CreateCompanyAction
 from app.src.v1.events.company.actions.read_company_action import ReadCompanyAction
 from app.src.v1.events.company.actions.read_companies_action import ReadCompaniesAction
@@ -34,7 +35,7 @@ class CompanyEvent(Event):
         }
         pass
 
-    def dispatch(self, id: Union[str, None] = None, data: dict = {}) -> None:
+    def dispatch(self, data: Union[Company, List[Company], None]) -> None:
         """[summary]
 
         Args:
@@ -50,7 +51,7 @@ class CompanyEvent(Event):
         try:
             logger.info(f'start loop event {self.__event}')
             send_loop = asyncio.new_event_loop()
-            t = Thread(target=run, args=(send_loop, self.__event, self.__eventMapping, id, data))
+            t = Thread(target=run, args=(send_loop, self.__event, self.__eventMapping, data))
             t.start()
         except Exception as e:
             logger.error({"error": f"company dispatch {self.__event} : {e.__repr__}"})
@@ -59,7 +60,7 @@ class CompanyEvent(Event):
         return None
 
 
-def run(loop, eventName: str, eventMapping: dict, id: Union[str, None], data: dict):
+def run(loop, eventName: str, eventMapping: dict, data: Union[Company, List[Company], None]):
     """[summary]
 
     Args:
@@ -70,5 +71,5 @@ def run(loop, eventName: str, eventMapping: dict, id: Union[str, None], data: di
         data (dict): [description]
     """
     asyncio.set_event_loop(loop)
-    eventMapping[eventName]().run(id=id, data=data)
+    eventMapping[eventName]().run(data=data)
     loop.close()
