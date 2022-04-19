@@ -1,4 +1,5 @@
 from typing import List, Union
+from app.src.entity import Entity
 from app.src.valuesobjects.ObjectId import ObjectId
 from app.src.valuesobjects.CompanyName import CompanyName
 from app.src.valuesobjects.VatNumber import VatNumber
@@ -6,7 +7,7 @@ from app.src.valuesobjects.PhoneNumber import PhoneNumber
 from app.src.valuesobjects.Email import Email
 
 
-class Company:
+class Company(Entity):
     def __init__(self):
         self.__id: ObjectId = None
         self.__name: CompanyName = None
@@ -15,7 +16,7 @@ class Company:
         self.__emails: List[Email] = []
         pass
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "id": self.__id.get() if self.__id else None,
             "name": self.__name.get() if self.__name else None,

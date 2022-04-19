@@ -6,6 +6,8 @@ from app.src.v1.services.company.read_companies_service import ReadCompaniesServ
 from app.src.v1.repositories.company.read_companies_repository import ReadCompaniesRepository
 from app.src.v1.events.company import CompanyEvent
 from app.bootstrap.logger import logger
+from app.http.adapter.v1.company.read_companies_adapter import ReadCompaniesAdapter
+from app.http.transformers.v1.company.read_companies_transformer import ReadCompaniesTranformer
 
 
 class ReadCompaniesController(Controller):
@@ -43,6 +45,10 @@ class ReadCompaniesController(Controller):
         logger.info('ReadCompanyController handle')
 
         return self.response(
-            await self.__service.excute(),
+            ReadCompaniesTranformer.transform(
+                await self.__service.excute(
+                    query=await ReadCompaniesAdapter(request).adapt()
+                )
+            ),
             200
         )

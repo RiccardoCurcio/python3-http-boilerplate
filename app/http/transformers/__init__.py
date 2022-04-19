@@ -1,9 +1,9 @@
-from abc import ABC, abstractmethod
+from abc import ABC, abstractstaticmethod
 
 
 class Tranformer(ABC):
 
     @staticmethod
-    @abstractmethod
+    @abstractstaticmethod
     def transform() -> dict:
         pass

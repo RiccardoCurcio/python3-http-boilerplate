@@ -35,7 +35,7 @@ class CompanyEvent(Event):
         }
         pass
 
-    def dispatch(self, data: Union[Company, List[Company], None]) -> None:
+    def dispatch(self, data: Union[Company, List[Company], None] = None) -> None:
         """[summary]
 
         Args:
@@ -60,7 +60,7 @@ class CompanyEvent(Event):
         return None
 
 
-def run(loop, eventName: str, eventMapping: dict, data: Union[Company, List[Company], None]):
+def run(loop, eventName: str, eventMapping: dict, data: Union[Company, List[Company], None] = None):
     """[summary]
 
     Args:

@@ -11,7 +11,7 @@ class ReadCompaniesAction:
         """
         pass
 
-    def run(self, data: List[Company]):
+    def run(self, data: List[Company] = []):
         """[summary]
 
         Args:

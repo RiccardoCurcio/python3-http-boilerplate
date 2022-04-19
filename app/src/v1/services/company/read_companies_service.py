@@ -1,4 +1,5 @@
 from app.src.service import Service
+from app.src.v1.queries.company import Company
 from app.src.v1.exceptions.company.events import CompanyEventExcepion
 from app.src.v1.events.company import CompanyEvent
 from app.src.v1.exceptions.company.repositories import CompaniesReadExcepion
@@ -24,7 +25,7 @@ class ReadCompaniesService(Service):
         self.__repo = repository
         self.__event = event
 
-    async def excute(self) -> dict:
+    async def excute(self, query: Company) -> dict:
         """[Execute]
 
         Args:
@@ -42,7 +43,7 @@ class ReadCompaniesService(Service):
         logger.info("ReadCompaniesService excute ")
 
         try:
-            response = await self.__repo.read()
+            response = await self.__repo.read(query)
         except CompaniesReadExcepion as e:
             logger.error({"error": f"ReadCompaniesService ReadCompaniesRepository read all: {e.__repr__}"})
             logger.error(traceback.format_exc())
