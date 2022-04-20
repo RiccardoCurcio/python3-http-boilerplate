@@ -21,7 +21,7 @@ class Company(Query):
 
     def to_dict(self) -> dict:
         return {
-            "ids": [value.get() for value in self.__ids]
+            "ids": [value.get() for value in self.__ids] if self.__ids else self.__ids  
         }
 
     @property
