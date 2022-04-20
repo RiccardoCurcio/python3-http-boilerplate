@@ -44,11 +44,14 @@ class ReadCompaniesController(Controller):
 
         logger.info('ReadCompanyController handle')
 
+        query = await ReadCompaniesAdapter(request).adapt()
+
         return self.response(
             ReadCompaniesTranformer.transform(
-                await self.__service.excute(
-                    query=await ReadCompaniesAdapter(request).adapt()
-                )
+                data=await self.__service.excute(
+                    query=query
+                ),
+                query=query
             ),
             200
         )

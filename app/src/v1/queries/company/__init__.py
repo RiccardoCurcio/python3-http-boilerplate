@@ -13,7 +13,7 @@ class Company(Query):
         self.__skip: int = 0
         self.__limit: int = 10
         self.__dateKeys: Union[List[str], None] = None
-        self.__dateRenges: Union[List[Tuple], None] = None
+        self.__dateRanges: Union[List[Tuple], None] = None
         self.__createdAtRange: Union[Tuple, None] = None
         self.__updatedAtRange: Union[Tuple, None] = None
         self.__deletedAtRange: Union[Tuple, None] = None
@@ -97,12 +97,12 @@ class Company(Query):
         return None
 
     @property
-    def dateRenges(self) -> Union[List[Tuple], None]:
-        return self.__dateRenges
+    def dateRanges(self) -> Union[List[Tuple], None]:
+        return self.__dateRanges
 
-    @dateRenges.setter
-    def dateRenges(self, dateRenges: Union[List[Tuple], None] = None) -> None:
-        self.__dateRenges = dateRenges
+    @dateRanges.setter
+    def dateRanges(self, dateRanges: Union[List[Tuple], None] = None) -> None:
+        self.__dateRanges = dateRanges
         return None
 
     @property
