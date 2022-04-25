@@ -1,8 +1,8 @@
 import os
 from aiohttp.web import get, route
 from app.corss_origin import CorssOrigin
-from app.http.controllers.health_check_controller import HealthCheckController
-from app.http.controllers.resource_not_found_controller import ResourceNotFoundController
+from app.http.abc.controllers.health_check_controller import HealthCheckController
+from app.http.abc.controllers.resource_not_found_controller import ResourceNotFoundController
 from app.http.routes.v1.company import routes as company_routes
 
 corssOrigin = CorssOrigin()

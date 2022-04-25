@@ -1,9 +1,9 @@
 from aiohttp.web import get, put, post, delete
-from app.http.controllers.v1.company.create_company_controller import CreateCompanyController
-from app.http.controllers.v1.company.read_companies_controller import ReadCompaniesController
-from app.http.controllers.v1.company.read_company_controller import ReadCompanyController
-from app.http.controllers.v1.company.update_company_controller import UpdateCompanyController
-from app.http.controllers.v1.company.delete_company_controller import DeleteCompanyController
+from app.http.v1.company.controllers.create_company_controller import CreateCompanyController
+from app.http.v1.company.controllers.read_companies_controller import ReadCompaniesController
+from app.http.v1.company.controllers.read_company_controller import ReadCompanyController
+from app.http.v1.company.controllers.update_company_controller import UpdateCompanyController
+from app.http.v1.company.controllers.delete_company_controller import DeleteCompanyController
 
 version = "v1"
 path = "companies"
