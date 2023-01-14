@@ -1,6 +1,6 @@
 from aiohttp.web_request import Request
 from app.http.abc.controllers import Controller, error, validateHeaders, validateParams, validateQuery, validateBody
-from app.http.v1.company.controllers import create_schema
+from app.http.v1.company.schemas.create import schema as create_schema
 from app.http.v1.company.adapter.create_company_adapter import CreateCompanyAdapter
 from app.http.v1.company.transformers.create_company_transformer import CreateCompanyTranformer
 from app.src.v1.company.services.create_company_service import CreateCompanyService

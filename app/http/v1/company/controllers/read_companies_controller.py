@@ -1,7 +1,7 @@
 from aiohttp.web_request import Request
 from aiohttp.web_response import Response
 from app.http.abc.controllers import Controller, error, validateHeaders, validateParams, validateQuery, validateBody
-from app.http.v1.company.controllers import read_all_schema
+from app.http.v1.company.schemas.read_all import schema as read_all_schema
 from app.src.v1.company.services.read_companies_service import ReadCompaniesService
 from app.src.v1.company.repositories.read_companies_repository import ReadCompaniesRepository
 from app.src.v1.company.events import CompanyEvent

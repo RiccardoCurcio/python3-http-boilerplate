@@ -1,6 +1,6 @@
 from aiohttp.web_request import Request
 from app.http.abc.controllers import Controller, error, validateHeaders, validateParams, validateQuery, validateBody
-from app.http.v1.company.controllers import update_schema
+from app.http.v1.company.schemas.update import schema as update_schema
 from app.http.v1.company.adapter.update_company_adapter import UpdateCompanyAdapter
 from app.src.v1.company.services.update_company_service import UpdateCompanyService
 from app.src.v1.company.repositories.update_company_repository import UpdateCompanyRepository

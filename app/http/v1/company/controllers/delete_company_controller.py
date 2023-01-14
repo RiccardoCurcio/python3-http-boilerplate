@@ -1,6 +1,6 @@
 from aiohttp.web_request import Request
 from app.http.abc.controllers import Controller, error, validateHeaders, validateParams, validateQuery, validateBody
-from app.http.v1.company.controllers import delete_schema
+from app.http.v1.company.schemas.delete import schema as delete_schema
 from app.http.v1.company.adapter.delete_company_adapter import DeleteCompanyAdapter
 from app.src.v1.company.services.delete_company_service import DeleteCompanyService
 from app.src.v1.company.repositories.delete_company_repository import DeleteCompanyRepository
