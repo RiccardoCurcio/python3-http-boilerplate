@@ -17,7 +17,7 @@ $ vim .env
 ```
 
 ```
-ENV=local
+ENV=local #local #dev #prod #test
 PREFIX=boilerplate
 
 PORT=3050

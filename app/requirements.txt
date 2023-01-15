@@ -6,4 +6,7 @@ python-dotenv==0.14.0
 requests
 typing-extensions==3.7.4.2
 super-case-converter-2000
+pymongo
+pytest
 pytest-aiohttp
+pytest_mock_resources
