@@ -1,9 +1,8 @@
 import os
 from aiohttp.web import get, route
 from app.corss_origin import CorssOrigin
-from app.http.abc.controllers.health_check_controller import HealthCheckController
-from app.http.abc.controllers.resource_not_found_controller import ResourceNotFoundController
-from app.http.routes.v1.company import routes as company_routes
+from app.src.application.abc.controllers.health_check_controller import HealthCheckController
+from app.src.application.abc.controllers.resource_not_found_controller import ResourceNotFoundController
 
 class Routes:
 
@@ -22,6 +21,9 @@ class Routes:
         ] + self.__corssOriginRoute + self.__notFound
 
     def add_routes(self) -> None:
+        # deve diventare dinamico
+        from app.http.routes.v1.company import routes as company_routes
+
         self.__routes = company_routes + self.__routes
 
     def get_routes(self) -> list:

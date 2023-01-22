@@ -56,6 +56,13 @@ docker-compose build --no-cache
 docker-compose up --build
 ```
 
+## Run Test
+```
+python3 -m app ENV=test
+
+pytest
+```
+
 
 ## Requests example
 
