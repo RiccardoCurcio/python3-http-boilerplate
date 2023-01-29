@@ -128,3 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .vscode
+
+# for develop
+app/http/routes/v1/user
+app/http/routes/v2

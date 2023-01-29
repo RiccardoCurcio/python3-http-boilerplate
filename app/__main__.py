@@ -10,30 +10,28 @@ from app.http.routes import Routes
 from app.middlewares import example_middelware
 
 
-app = web.Application(middlewares=[example_middelware])
-routes = Routes()
-routes.add_routes()
-app.add_routes(routes.get_routes())
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
-        logger.info(f'Env load {loaded}...')
-        
+        logger.info(f"Env load {loaded}...")
+
         map_args(iter(sys.argv[1:]))
 
         # app['MemcachedConnection'] = MemcachedClient().getClient() if bool(int(os.getenv("MEMCACHED_ENABLE", "0"))) else None
         # app['dbCursor'] = Database().getCursor()
-        port = int(os.getenv('PORT'))
+        port = int(os.getenv("PORT"))
         logger.info(f'Env {os.getenv("ENV")}')
         logger.info(f'Prefix {os.getenv("PREFIX")}')
         logger.info(f'Logging level {os.getenv("LOGGING_LEVEL")}')
         logger.info(f'Service name {os.getenv("SERVICE_NAME")}')
-        logger.info(f'Starting server on port {port}...')
+        app = web.Application(middlewares=[example_middelware])
+        routes = Routes()
+        routes.add_routes()
+        app.add_routes(routes.get_routes())
+        logger.info(f"Starting server on port {port}...")
         web.run_app(app, port=port)
     except KeyboardInterrupt:
-        logger.info('Stopping server...')
+        logger.info("Stopping server...")
         sys.exit(0)
     except Exception as e:
-        logger.error(f'There was an error while starting the server: {e}')
+        logger.error(f"There was an error while starting the server: {e}")
         sys.exit(1)
