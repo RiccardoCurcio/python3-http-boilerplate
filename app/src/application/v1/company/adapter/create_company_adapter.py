@@ -17,7 +17,7 @@ class CreateCompanyAdapter(Adapter):
     async def adapt(self) -> Company:
         request = await self.__request.json()
 
-        self.__company.id = ObjectId(request.get("id", None))
+        self.__company.id = ObjectId(request.get("id")) if request.get("id", None) else None
         self.__company.name = CompanyName(request.get("name", None))
         self.__company.vatNumber = VatNumber(request.get("vatNumber", None))
         self.__company.phones = [PhoneNumber(value) for value in request.get("phones", [])]

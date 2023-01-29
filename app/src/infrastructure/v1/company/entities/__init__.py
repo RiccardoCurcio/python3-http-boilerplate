@@ -9,7 +9,7 @@ from app.src.domain.valuesobjects.Email import Email
 
 class Company(Entity):
     def __init__(self):
-        self.__id: ObjectId = None
+        self.__id: Union[ObjectId, None] = None
         self.__name: CompanyName = None
         self.__vatNumber: Union[VatNumber, None] = None
         self.__phones: List[PhoneNumber] = []
@@ -30,7 +30,7 @@ class Company(Entity):
         return self.__id
 
     @id.setter
-    def id(self, id: ObjectId = None) -> None:
+    def id(self, id: Union[ObjectId, None] = None) -> None:
         self.__id = id
         return None
 
