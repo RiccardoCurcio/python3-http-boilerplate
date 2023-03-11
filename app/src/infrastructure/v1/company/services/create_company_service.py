@@ -5,8 +5,12 @@ from app.bootstrap.logger import logger
 from app.src.infrastructure.v1.company.entities import Company
 from app.src.infrastructure.v1.company.exceptions.events import CompanyEventExcepion
 from app.src.infrastructure.v1.company.events import CompanyEvent
-from app.src.infrastructure.v1.company.exceptions.repositories import CompanyCreateExcepion
-from app.src.infrastructure.v1.company.repositories.create_company_repository import CreateCompanyRepository
+from app.src.infrastructure.v1.company.exceptions.repositories import (
+    CompanyCreateExcepion,
+)
+from app.src.infrastructure.v1.company.repositories.create_company_repository import (
+    CreateCompanyRepository,
+)
 
 
 class CreateCompanyService(Service):
@@ -16,7 +20,9 @@ class CreateCompanyService(Service):
         Service ([Service]): [ABS service]
     """
 
-    def __init__(self, repository: CreateCompanyRepository, event: CompanyEvent) -> None:
+    def __init__(
+        self, repository: CreateCompanyRepository, event: CompanyEvent
+    ) -> None:
         """[summary]
 
         Args:
@@ -44,13 +50,19 @@ class CreateCompanyService(Service):
         try:
             response = await self.__repo.create(data=data)
         except CompanyCreateExcepion as e:
-            logger.error({"error": f"CreateCompanyService CompanyRepository create: {e.__repr__}"})
+            logger.error(
+                {
+                    "error": f"CreateCompanyService CompanyRepository create: {e.__repr__}"
+                }
+            )
             logger.error(traceback.format_exc())
             raise Exception(e)
         try:
             self.__event.dispatch(data=data)
         except CompanyEventExcepion as e:
-            logger.error({"error": f"CreateCompanyService CompanyEvent dispatch: {e.__repr__}"})
+            logger.error(
+                {"error": f"CreateCompanyService CompanyEvent dispatch: {e.__repr__}"}
+            )
             logger.error(traceback.format_exc())
 
         return response

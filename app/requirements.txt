@@ -10,3 +10,4 @@ pymongo
 pytest
 pytest-aiohttp
 pytest_mock_resources
+cryptography

@@ -1,11 +1,27 @@
 from aiohttp.web_request import Request
-from app.src.application.abc.controllers import Controller, error, validateHeaders, validateParams, validateQuery, validateBody
+from app.src.application.abc.controllers import (
+    Controller,
+    error,
+    validateHeaders,
+    validateParams,
+    validateQuery,
+    validateBody,
+)
 from app.src.application.v1.company.schemas.create import schema as create_schema
-from app.src.application.v1.company.adapter.create_company_adapter import CreateCompanyAdapter
-from app.src.application.v1.company.transformers.create_company_transformer import CreateCompanyTranformer
-from app.src.infrastructure.v1.company.services.create_company_service import CreateCompanyService
-from app.src.infrastructure.v1.company.repositories.create_company_repository import CreateCompanyRepository
+from app.src.application.v1.company.adapter.create_company_adapter import (
+    CreateCompanyAdapter,
+)
+from app.src.application.v1.company.transformers.create_company_transformer import (
+    CreateCompanyTranformer,
+)
+from app.src.infrastructure.v1.company.services.create_company_service import (
+    CreateCompanyService,
+)
+from app.src.infrastructure.v1.company.repositories.create_company_repository import (
+    CreateCompanyRepository,
+)
 from app.src.infrastructure.v1.company.events import CompanyEvent
+from app.src.infrastructure.v1.company.entities import Company
 from app.bootstrap.logger import logger
 
 
@@ -15,10 +31,10 @@ class CreateCompanyController(Controller):
     Args:
         Controller ([Object]): [ABS controller]
     """
+
     def __init__(self) -> None:
         self.__service = CreateCompanyService(
-            CreateCompanyRepository(),
-            CompanyEvent("create_company_event")
+            CreateCompanyRepository(), CompanyEvent("create_company_event")
         )
 
     @property
@@ -40,13 +56,8 @@ class CreateCompanyController(Controller):
             [Response]: [http response]
         """
 
-        logger.info('CreateCompanyController handle')
+        logger.info("CreateCompanyController handle")
 
-        return self.response(
-            CreateCompanyTranformer.transform(
-                await self.__service.excute(
-                    data=await CreateCompanyAdapter(request).adapt()
-                )
-            ),
-            201
-        )
+        entity: Company = await self.__service.excute(data=await CreateCompanyAdapter(request).adapt())
+
+        return self.response(CreateCompanyTranformer.transform(entity), 201)

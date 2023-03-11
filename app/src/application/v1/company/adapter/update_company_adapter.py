@@ -6,6 +6,7 @@ from app.src.domain.valuesobjects.CompanyName import CompanyName
 from app.src.domain.valuesobjects.VatNumber import VatNumber
 from app.src.domain.valuesobjects.PhoneNumber import PhoneNumber
 from app.src.domain.valuesobjects.Email import Email
+from app.crypt import deobfuscate
 
 
 class UpdateCompanyAdapter(Adapter):
@@ -16,7 +17,7 @@ class UpdateCompanyAdapter(Adapter):
 
     async def adapt(self) -> Company:
         request = await self.__request.json()
-        self.__company.id = ObjectId(self.__request.match_info.get('entity_id', None))
+        self.__company.id = ObjectId(deobfuscate(self.__request.match_info.get('entity_id', "")))
         self.__company.name = CompanyName(request.get("name", None))
         self.__company.vatNumber = VatNumber(request.get("vatNumber", None))
         self.__company.phones = [PhoneNumber(value) for value in request.get("phones", [])]

@@ -1,9 +1,11 @@
-from abc import ABC, abstractstaticmethod
+from abc import ABC, abstractmethod
+
+from app.src.domain.abc.entity import Entity
 
 
 class Tranformer(ABC):
 
     @staticmethod
-    @abstractstaticmethod
-    def transform() -> dict:
+    @abstractmethod
+    def transform(data: Entity) -> dict:
         pass

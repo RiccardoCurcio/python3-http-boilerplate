@@ -7,7 +7,7 @@ from app.bootstrap.logger import logger
 from app.bootstrap.map_args import map_args
 from app.database.database import Database
 from app.http.routes import Routes
-from app.middlewares import example_middelware
+from app.middlewares import example_middleware
 
 
 if __name__ == "__main__":
@@ -23,7 +23,7 @@ if __name__ == "__main__":
         logger.info(f'Prefix {os.getenv("PREFIX")}')
         logger.info(f'Logging level {os.getenv("LOGGING_LEVEL")}')
         logger.info(f'Service name {os.getenv("SERVICE_NAME")}')
-        app = web.Application(middlewares=[example_middelware])
+        app = web.Application(middlewares=[example_middleware])
         routes = Routes()
         routes.add_routes()
         app.add_routes(routes.get_routes())

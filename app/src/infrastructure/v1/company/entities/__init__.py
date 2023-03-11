@@ -9,11 +9,11 @@ from app.src.domain.valuesobjects.Email import Email
 
 class Company(Entity):
     def __init__(self):
-        self.__id: Union[ObjectId, None] = None
-        self.__name: CompanyName = None
-        self.__vatNumber: Union[VatNumber, None] = None
-        self.__phones: List[PhoneNumber] = []
-        self.__emails: List[Email] = []
+        self.__id = None
+        self.__name = None
+        self.__vatNumber = None
+        self.__phones = []
+        self.__emails = []
         pass
 
     def to_dict(self) -> dict:
@@ -48,7 +48,7 @@ class Company(Entity):
         return self.__vatNumber
 
     @vatNumber.setter
-    def vatNumber(self, vatNumber: VatNumber = None) -> None:
+    def vatNumber(self, vatNumber: Union[VatNumber, None] = None) -> None:
         self.__vatNumber = vatNumber
         return None
 

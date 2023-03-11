@@ -1,8 +1,8 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 
 class Entity(ABC):
 
-    @abstractclassmethod
+    @abstractmethod
     def to_dict(self) -> dict:
         pass

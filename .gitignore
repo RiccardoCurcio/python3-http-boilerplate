@@ -132,3 +132,7 @@ dmypy.json
 # for develop
 app/http/routes/v1/user
 app/http/routes/v2
+
+.idea
+.mypy_cache
+.pytest_cache
