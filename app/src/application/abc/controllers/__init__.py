@@ -1,6 +1,5 @@
 import json
 import os
-import traceback
 from typing import Any
 from abc import ABC, abstractmethod
 from aiohttp.web_exceptions import HTTPBadRequest, HTTPError
@@ -43,7 +42,7 @@ def validateHeaders(handle):
                 schema=controller.schema.get("headers", None)
             )
         except ValidationError as e:
-            logger.error(e)
+            logger.error(e, exc_info=True)
             raise HTTPBadRequest(reason=e.message)
 
         return await handle(controller, request)
@@ -71,7 +70,7 @@ def validateParams(handle):
                 schema=controller.schema.get("params", None)
             )
         except ValidationError as e:
-            logger.error(e)
+            logger.error(e, exc_info=True)
             raise HTTPBadRequest(reason=e.message)
 
         return await handle(controller, request)
@@ -99,7 +98,7 @@ def validateQuery(handle):
                 schema=controller.schema.get("query", None)
             )
         except ValidationError as e:
-            logger.error(e)
+            logger.error(e, exc_info=True)
             raise HTTPBadRequest(reason=e.message)
 
         return await handle(controller, request)
@@ -127,7 +126,7 @@ def validateBody(handle):
                 schema=controller.schema.get("body", None)
             )
         except ValidationError as e:
-            logger.error(e)
+            logger.error(e, exc_info=True)
             raise HTTPBadRequest(reason=e.message)
 
         return await handle(controller, request)
@@ -153,11 +152,11 @@ def error(handle):
             )
         except ValueObjectExcepion as e:
             if os.getenv("ENV") == "local":
-                logger.error(traceback.format_exc())
+                logger.error("ValueObjectExcepion: ", exc_info=True)
             return await controller.error(request=request, detail=str(e), title="ValueObject rules Exception", status=400)
         except Exception as e:
             if os.getenv("ENV") == "local":
-                logger.error(traceback.format_exc())
+                logger.error("Exception: ", exc_info=True)
             return await controller.error(request, str(e))
 
     return wrapper
@@ -225,7 +224,8 @@ class Controller(ABC):
         url = request.url
         text = f"{json.loads(await request.text() or '{}')}"
         logger.error(
-            f"{title}: {detail} | {method} {url} {text}"
+            f"{title}: {detail} | {method} {url} {text}",
+            exc_info=True
         )
         return self.response(
             data={

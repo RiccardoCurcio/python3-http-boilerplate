@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 from importlib import import_module
 from aiohttp.web import get, route
 from app.bootstrap.logger import logger
@@ -25,9 +26,9 @@ class Routes:
             else []
         )
         self.__routes = (
-            [get("/healthcheck", self.__healthCheckController.handle)]
-            + self.__corssOriginRoute
-            + self.__notFound
+            [
+                get("/healthcheck", self.__healthCheckController.handle)
+            ] + self.__corssOriginRoute + self.__notFound
         )
 
     def add_routes(self) -> None:
@@ -63,8 +64,8 @@ class Routes:
 
                     self.__routes = module.routes + self.__routes
                     logger.info(f"routes Import  app.http.routes.{module_name} success")
-        except Exception as e:
-            logger.error(f"add_routes error: {e}")
+        except Exception:
+            logger.error("add_routes error: ", exc_info=True)
             sys.exit(1)
 
     def get_routes(self) -> list:

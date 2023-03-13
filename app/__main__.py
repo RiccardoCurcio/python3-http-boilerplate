@@ -5,7 +5,6 @@ from aiohttp import web
 from app.bootstrap.env import loaded
 from app.bootstrap.logger import logger
 from app.bootstrap.map_args import map_args
-from app.database.database import Database
 from app.http.routes import Routes
 from app.middlewares import example_middleware
 
@@ -15,9 +14,6 @@ if __name__ == "__main__":
         logger.info(f"Env load {loaded}...")
 
         map_args(iter(sys.argv[1:]))
-
-        # app['MemcachedConnection'] = MemcachedClient().getClient() if bool(int(os.getenv("MEMCACHED_ENABLE", "0"))) else None
-        # app['dbCursor'] = Database().getCursor()
         port = int(os.getenv("PORT"))
         logger.info(f'Env {os.getenv("ENV")}')
         logger.info(f'Prefix {os.getenv("PREFIX")}')
@@ -32,6 +28,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         logger.info("Stopping server...")
         sys.exit(0)
-    except Exception as e:
-        logger.error(f"There was an error while starting the server: {e}")
+    except Exception:
+        logger.error("There was an error while starting the server: ", exc_info=True)
         sys.exit(1)

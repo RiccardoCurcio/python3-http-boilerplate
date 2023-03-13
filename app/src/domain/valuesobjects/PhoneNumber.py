@@ -1,6 +1,7 @@
 from app.src.domain.valuesobjects import ValueObject, ValueObjectExcepion, Rules
 import re
 
+
 class PhoneNumber(ValueObject):
     def __init__(self, value: str):
         self.__value = Rules.run(value)
@@ -9,8 +10,8 @@ class PhoneNumber(ValueObject):
     def get(self) -> str:
         return self.__value
 
-class Rules(Rules):
 
+class Rules(Rules):
     @staticmethod
     def run(value) -> str:
         regex = "^\\+?\\d{1,4}?[-.\\s]?\\(?\\d{1,3}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$"

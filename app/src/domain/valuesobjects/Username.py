@@ -2,7 +2,7 @@ from app.src.domain.valuesobjects import ValueObject, ValueObjectExcepion, Rules
 import re
 
 
-class ObjectId(ValueObject):
+class Username(ValueObject):
     def __init__(self, value: str):
         self.__value = Rules.run(value)
         pass
@@ -13,12 +13,12 @@ class ObjectId(ValueObject):
 
 class Rules(Rules):
     @staticmethod
-    def run(value) -> str:
-        regex = r"^[a-fA-F0-9]{24}$"
+    def run(value) -> bool:
+        regex = r".{2,}"
         if not re.fullmatch(regex, value):
-            raise ObjectIdExcepion("ObjectId format not valid")
+            raise UsernameExcepion("user Name non valid length")
         return value
 
 
-class ObjectIdExcepion(ValueObjectExcepion):
+class UsernameExcepion(ValueObjectExcepion):
     pass

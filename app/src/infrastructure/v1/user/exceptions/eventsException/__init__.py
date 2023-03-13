@@ -1,0 +1,2 @@
+class UserEventExcepion(Exception):
+    pass

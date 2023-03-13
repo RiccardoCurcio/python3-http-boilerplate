@@ -104,6 +104,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.env.test
 env/
 venv/
 ENV/
@@ -128,10 +129,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .vscode
-
-# for develop
-app/http/routes/v1/user
-app/http/routes/v2
 
 .idea
 .mypy_cache

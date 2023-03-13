@@ -1,7 +1,7 @@
 import requests
 import os
 
-port = int(os.getenv("PORT"))
+port = int(os.getenv("PORT", "3050"))
 
 
 class TestClass:

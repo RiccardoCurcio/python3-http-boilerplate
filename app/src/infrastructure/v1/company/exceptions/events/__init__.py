@@ -1,2 +1,0 @@
-class CompanyEventExcepion(Exception):
-    pass
