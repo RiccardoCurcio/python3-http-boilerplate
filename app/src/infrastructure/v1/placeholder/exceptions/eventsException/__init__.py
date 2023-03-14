@@ -1,0 +1,2 @@
+class PlaceholderEventExcepion(Exception):
+    pass

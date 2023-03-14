@@ -16,7 +16,7 @@ class Rules(Rules):
     def run(value) -> bool:
         regex = r".{2,}"
         if not re.fullmatch(regex, value):
-            raise UsernameExcepion("user Name non valid length")
+            raise UsernameExcepion("placeholder Name non valid length")
         return value
 
 

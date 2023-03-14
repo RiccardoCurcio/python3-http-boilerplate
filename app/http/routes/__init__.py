@@ -26,9 +26,9 @@ class Routes:
             else []
         )
         self.__routes = (
-            [
-                get("/healthcheck", self.__healthCheckController.handle)
-            ] + self.__corssOriginRoute + self.__notFound
+            [get("/healthcheck", self.__healthCheckController.handle)]
+            + self.__corssOriginRoute
+            + self.__notFound
         )
 
     def add_routes(self) -> None:
