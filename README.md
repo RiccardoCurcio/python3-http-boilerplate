@@ -73,17 +73,17 @@ GET http://localhost:3050/healthcheck
 
 #### read all
 ```
-GET http://localhost:3050/v1/companies
+GET http://localhost:3050/v1/placeholders
 ```
 
 #### read single item
 ```
-GET http://localhost:3050/v1/companies/{id}
+GET http://localhost:3050/v1/placeholders/{id}
 ```
 
 #### crete new item
 ``` 
-POST http://localhost:3050/v1/companies
+POST http://localhost:3050/v1/placeholders
 
 header
 
@@ -92,15 +92,16 @@ header
 body: 
 
     {
-    	"name": "test",
-    	"iban": "iban",
-    	"email": "company@email.com"
+        "name": "tss",
+        "vatNumber": "000000",
+        "phones": ["3492256745", "0039 (333) 3423456", "+23 435 7865345"],
+        "emails": ["ere@pino.com"]
     }
 ```
 
 #### update sigle item
 ```
-PUT http://localhost:3050/v1/companies/{id}
+PUT http://localhost:3050/v1/placeholders/{id}
 
 header
 
@@ -109,13 +110,14 @@ header
 body: 
 
     {
-    	"name": "test",
-    	"iban": "iban",
-    	"email": "company@email.com"
+        "name": "tss",
+        "vatNumber": "000000",
+        "phones": [],
+        "emails": []
     }
 ```
 
 ### delete sigle item
 ```
-DELETE http://localhost:3050/v1/companies/{id}
+DELETE http://localhost:3050/v1/placeholders/{id}
 ```
