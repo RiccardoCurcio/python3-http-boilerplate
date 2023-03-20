@@ -5,6 +5,9 @@ from app.src.domain.valuesobjects.ObjectId import ObjectId
 
 class CreatePaceholderGateway(CreateGateway):
     async def call(self, data: Placeholder) -> dict:
+        return await self.__call_service(data)
+
+    async def __call_service(self, data: Placeholder):
         data.id = ObjectId("617c4d302bdaae79da0a6778")
         return {
             "id": data.id.get(),

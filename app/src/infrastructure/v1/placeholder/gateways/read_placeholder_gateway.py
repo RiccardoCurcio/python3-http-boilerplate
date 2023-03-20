@@ -5,11 +5,14 @@ from app.src.domain.valuesobjects.ObjectId import ObjectId
 
 class ReadPaceholderGateway(ReadGateway):
     async def call(self, data: Placeholder) -> dict:
+        return await self.__call_service(data)
+
+    async def __call_service(self, data: Placeholder):
         data.id = ObjectId("617c4d302bdaae79da0a6778")
         return {
             "id": data.id.get(),
-            "name": "pippo",
-            "vatNumber": "0000",
-            "phones": ["3492256745", "0039 (333) 3423456", "+23 435 7865345"],
-            "emails": ["ere@pino.com"],
+            "name": data.name.get(),
+            "vatNumber": data.vatNumber.get(),
+            "phones": map(lambda item: item.get(), data.phones),
+            "emails": map(lambda item: item.get(), data.emails),
         }
