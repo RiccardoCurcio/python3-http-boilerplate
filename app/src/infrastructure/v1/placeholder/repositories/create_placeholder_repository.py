@@ -3,7 +3,7 @@ from app.src.domain.abc.repository import CreateRepository
 from app.src.infrastructure.v1.placeholder.entities import Placeholder
 from app.src.infrastructure.v1.placeholder.exceptions.repositoriesException import PlaceholderCreateExcepion
 from app.src.infrastructure.v1.placeholder.gateways.create_placeholder_gateway import CreatePaceholderGateway
-from app.src.infrastructure.v1.placeholder.mapper.mapper import Mapper
+from app.src.infrastructure.v1.placeholder.mapper import Mapper
 from app.bootstrap.logger import logger
 
 

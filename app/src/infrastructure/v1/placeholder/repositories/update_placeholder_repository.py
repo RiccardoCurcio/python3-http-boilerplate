@@ -2,7 +2,7 @@ from typing import Union
 from app.src.domain.abc.repository import UpdateRepository
 from app.src.infrastructure.v1.placeholder.gateways.update_placeholder_gateway import UpdatePaceholderGateway
 from app.src.infrastructure.v1.placeholder.exceptions.repositoriesException import PlaceholderUpdateExcepion
-from app.src.infrastructure.v1.placeholder.mapper.mapper import Mapper
+from app.src.infrastructure.v1.placeholder.mapper import Mapper
 from app.bootstrap.logger import logger
 from app.src.infrastructure.v1.placeholder.entities import Placeholder
 

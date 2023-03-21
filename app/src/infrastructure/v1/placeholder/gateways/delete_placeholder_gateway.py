@@ -4,4 +4,7 @@ from app.src.infrastructure.v1.placeholder.entities import Placeholder
 
 class DeletePaceholderGateway(DeleteGateway):
     async def call(self, data: Placeholder) -> dict:
-        return {"placeholder": f"placeholder repo delete : {data.id.get()}"}
+        return await self.__call_service(data)
+
+    async def __call_service(self, data: Placeholder):
+        return {"id": data.id.get()}
