@@ -11,4 +11,5 @@ pytest
 pytest-aiohttp
 pytest_mock_resources
 pytest-mock
+pytest-cov
 cryptography
