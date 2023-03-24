@@ -32,36 +32,15 @@ def eventLog(record):
 
 def run(loop, record):
     asyncio.set_event_loop(loop)
-    if record.levelname == "INFO":
-        # print(
-        #     datetime.datetime.fromtimestamp(record.created),
-        #     record.getMessage(),
-        #     record.filename,
-        #     record.funcName,
-        #     record.getMessage,
-        #     record.levelname,
-        #     record.levelno,
-        #     record.lineno,
-        #     record.module,
-        #     record.msecs,
-        #     record.msg,
-        #     record.name,
-        #     record.pathname,
-        #     record.process,
-        #     record.processName,
-        #     record.relativeCreated,
-        #     record.stack_info,
-        #     record.thread,
-        #     record.threadName,
-        # )
-        pass
-    if record.levelname == "DEBUG":
-        pass
-    if record.levelname == "ERROR":
-        # print(record.getMessage(), traceback.format_exc())
-        pass
-    if record.levelname == "CRITICAL":
-        pass
+    # if record.levelname == "INFO":
+    #     pass
+    # if record.levelname == "DEBUG":
+    #     pass
+    # if record.levelname == "ERROR":
+    #     # print(record.getMessage(), traceback.format_exc())
+    #     pass
+    # if record.levelname == "CRITICAL":
+    #     pass
     loop.close()
 
     return True
