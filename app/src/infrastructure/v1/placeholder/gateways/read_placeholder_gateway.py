@@ -11,8 +11,8 @@ class ReadPaceholderGateway(ReadGateway):
         data.id = ObjectId("617c4d302bdaae79da0a6778")
         return {
             "id": data.id.get(),
-            "name": data.name.get(),
-            "vatNumber": data.vatNumber.get(),
-            "phones": map(lambda item: item.get(), data.phones),
-            "emails": map(lambda item: item.get(), data.emails),
+            "name": "pippo",
+            "vatNumber": "00000",
+            "phones": ["3492256745", "0039 (333) 3423456", "+23 435 7865345"],
+            "emails": ["ere@pino.com"],
         }

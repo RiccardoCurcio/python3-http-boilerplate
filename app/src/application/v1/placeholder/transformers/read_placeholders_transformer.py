@@ -8,7 +8,6 @@ class ReadPlaceholdersTranformer(Tranformer):
 
     @staticmethod
     def transform(data: list[Placeholder], query: PlaceholderQuery) -> dict:
-        print(data)
         content: list[dict] = list(map(lambda item: ReadPlaceholderTranformer.transform(item), data))
         return {
             "pagination": {

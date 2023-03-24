@@ -1,4 +1,3 @@
-from typing import Union
 from app.src.domain.abc.service import Service
 from app.bootstrap.logger import logger
 from app.src.infrastructure.v1.placeholder.entities import Placeholder
@@ -28,10 +27,11 @@ class CreatePlaceholderService(Service):
             repository (CreatePlaceholderRepository): [description]
             event (placeholderEvent): [description]
         """
-        self.__repo = repository
-        self.__event = event
+        self.__repo: CreatePlaceholderRepository = repository
+        self.__event: PlaceholderEvent = event
+        self.__response: Placeholder | None = None
 
-    async def excute(self, data: Placeholder) -> Union[Placeholder, None]:
+    async def excute(self, data: Placeholder) -> Placeholder | None:
         """_summary_
 
         Args:
@@ -43,11 +43,11 @@ class CreatePlaceholderService(Service):
         Returns:
             Union[Placeholder, None]: _description_
         """
-        response: Union[Placeholder, None] = None
+        
         logger.info("CreateplaceholderService excute")
 
         try:
-            response = await self.__repo.create(data=data)
+            self.__response = await self.__repo.create(data=data)
         except PlaceholderCreateExcepion as e:
             logger.error(
                 {
@@ -64,4 +64,4 @@ class CreatePlaceholderService(Service):
                 exc_info=True
             )
 
-        return response
+        return self.__response

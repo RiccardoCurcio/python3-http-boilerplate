@@ -1,6 +1,7 @@
-from typing import Union
 from app.src.domain.abc.service import Service
-from app.src.infrastructure.v1.placeholder.exceptions.eventsException import PlaceholderEventExcepion
+from app.src.infrastructure.v1.placeholder.exceptions.eventsException import (
+    PlaceholderEventExcepion,
+)
 from app.src.infrastructure.v1.placeholder.events import PlaceholderEvent
 from app.src.infrastructure.v1.placeholder.entities import Placeholder
 from app.src.infrastructure.v1.placeholder.exceptions.repositoriesException import (
@@ -19,17 +20,20 @@ class ReadPlaceholderService(Service):
         Service ([Service]): [ADS service]
     """
 
-    def __init__(self, repository: ReadPlaceholderRepository, event: PlaceholderEvent) -> None:
+    def __init__(
+        self, repository: ReadPlaceholderRepository, event: PlaceholderEvent
+    ) -> None:
         """[summary]
 
         Args:
             repository (ReadPlaceholderRepository): [description]
             event (PlaceholderEvent): [description]
         """
-        self.__repo = repository
-        self.__event = event
+        self.__repo: ReadPlaceholderRepository = repository
+        self.__event: PlaceholderEvent = event
+        self.__response: Placeholder | None = None
 
-    async def excute(self, data: Placeholder) -> Union[Placeholder, None]:
+    async def excute(self, data: Placeholder) -> Placeholder | None:
         """[Execute]
 
         Args:
@@ -42,15 +46,15 @@ class ReadPlaceholderService(Service):
             dict: [to response]
         """
 
-        response = {}
-
         logger.info(f"ReadplaceholderService excute id={data.id}")
 
         try:
-            response = await self.__repo.readById(data=data)
+            self.__response = await self.__repo.readById(data=data)
         except PlaceholderReadByIdExcepion as e:
             logger.error(
-                {"error": f"ReadplaceholderService ReadPlaceholderRepository readById: {e.__repr__}"},
+                {
+                    "error": f"ReadplaceholderService ReadPlaceholderRepository readById: {e.__repr__}"
+                },
                 exc_info=True,
             )
             raise Exception(e)
@@ -59,8 +63,10 @@ class ReadPlaceholderService(Service):
             self.__event.dispatch(data=data)
         except PlaceholderEventExcepion as e:
             logger.error(
-                {"error": f"ReadplaceholderService placeholderEvent dispatch: {e.__repr__}"},
+                {
+                    "error": f"ReadplaceholderService placeholderEvent dispatch: {e.__repr__}"
+                },
                 exc_info=True,
             )
 
-        return response
+        return self.__response

@@ -1,4 +1,4 @@
-from app.tests.app.src.infrastructure.v1.placeholder.entities import placeholder  # noqa: F401
+from app.tests.app.src.infrastructure.v1.placeholder.mocks.entities import placeholder  # noqa: F401
 from app.tests.app.src.infrastructure.v1.placeholder.queries import placeholder_query  # noqa: F401
 from app.tests.app.src.infrastructure.v1.placeholder.mocks.gateways.mocks_service_call import mock_create__call  # noqa: F401
 from app.tests.app.src.infrastructure.v1.placeholder.mocks.gateways.mocks_service_call import mock_update__call  # noqa: F401

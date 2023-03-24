@@ -27,8 +27,9 @@ class ReadPlaceholdersService(Service):
         """
         self.__repo = repository
         self.__event = event
+        self.__response: dict[Placeholder | None]
 
-    async def excute(self, query: Placeholder) -> dict:
+    async def excute(self, query: Placeholder) -> dict[Placeholder | None]:
         """[Execute]
 
         Args:
@@ -41,12 +42,10 @@ class ReadPlaceholdersService(Service):
             dict: [to response]
         """
 
-        response = {}
-
         logger.info("ReadPlaceholdersService excute ")
 
         try:
-            response = await self.__repo.read(query)
+            self.__response = await self.__repo.read(query)
         except PlaceholdersReadExcepion as e:
             logger.error(
                 {
@@ -64,4 +63,4 @@ class ReadPlaceholdersService(Service):
                 exc_info=True,
             )
 
-        return response
+        return self.__response

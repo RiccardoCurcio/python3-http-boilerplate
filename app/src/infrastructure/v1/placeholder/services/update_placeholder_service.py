@@ -1,7 +1,9 @@
 from app.src.domain.abc.service import Service
 from app.bootstrap.logger import logger
 from app.src.infrastructure.v1.placeholder.entities import Placeholder
-from app.src.infrastructure.v1.placeholder.exceptions.eventsException import PlaceholderEventExcepion
+from app.src.infrastructure.v1.placeholder.exceptions.eventsException import (
+    PlaceholderEventExcepion,
+)
 from app.src.infrastructure.v1.placeholder.events import PlaceholderEvent
 from app.src.infrastructure.v1.placeholder.exceptions.repositoriesException import (
     PlaceholderUpdateExcepion,
@@ -18,17 +20,20 @@ class UpdatePlaceholderService(Service):
         Service ([Service]): [ABS service]
     """
 
-    def __init__(self, repository: UpdatePlaceholderRepository, event: PlaceholderEvent) -> None:
+    def __init__(
+        self, repository: UpdatePlaceholderRepository, event: PlaceholderEvent
+    ) -> None:
         """[summary]
 
         Args:
             repository (UpdatePlaceholderRepository): [description]
             event (PlaceholderEvent): [description]
         """
-        self.__repo = repository
-        self.__event = event
+        self.__repo: UpdatePlaceholderRepository = repository
+        self.__event: PlaceholderEvent = event
+        self.__response: Placeholder | None = None
 
-    async def excute(self, data: Placeholder) -> dict:
+    async def excute(self, data: Placeholder) -> Placeholder | None:
         """[Update placeholder service]
 
         Args:
@@ -41,11 +46,10 @@ class UpdatePlaceholderService(Service):
         Returns:
             dict: [to reponse]
         """
-        response = {}
         logger.info(f"UpdateplaceholderService excute id={data.id}")
 
         try:
-            response = await self.__repo.update(data=data)
+            self.__response = await self.__repo.update(data=data)
         except PlaceholderUpdateExcepion as e:
             logger.error(
                 {
@@ -58,8 +62,10 @@ class UpdatePlaceholderService(Service):
             self.__event.dispatch(data=data)
         except PlaceholderEventExcepion as e:
             logger.error(
-                {"error": f"UpdateplaceholderService placeholderEvent dispatch: {e.__repr__}"},
+                {
+                    "error": f"UpdateplaceholderService placeholderEvent dispatch: {e.__repr__}"
+                },
                 exc_info=True,
             )
 
-        return response
+        return self.__response

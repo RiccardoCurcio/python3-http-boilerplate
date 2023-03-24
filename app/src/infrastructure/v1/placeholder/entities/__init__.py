@@ -21,8 +21,8 @@ class Placeholder(Entity):
             "id": self.__id.get() if self.__id else None,
             "name": self.__name.get() if self.__name else None,
             "vatNumber": self.__vatNumber.get() if self.__vatNumber else None,
-            "phones": [value.get() for value in self.__phones],
-            "emails": [value.get() for value in self.__emails]
+            "phones": [value.get() for value in self.__phones] if self.__phones else [],
+            "emails": [value.get() for value in self.__emails] if self.__emails else []
         }
 
     @property
